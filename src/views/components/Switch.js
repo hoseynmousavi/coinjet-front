@@ -66,12 +66,13 @@ function Switch({children, className})
                 {
                     currentIndex.current = showChildIndexTemp
                     const scroll = getScroll(type)
-                    if (window.innerWidth <= 480)
-                    {
-                        if (type === "popstate") mobileBack(showChildIndexTemp, locationTemp, scroll)
-                        else mobileForward(showChildIndexTemp, locationTemp, scroll)
-                    }
-                    else desktopRoute(showChildIndexTemp, locationTemp, scroll)
+                    // if (window.innerWidth <= 480)
+                    // {
+                    //     if (type === "popstate") mobileBack(showChildIndexTemp, locationTemp, scroll)
+                    //     else mobileForward(showChildIndexTemp, locationTemp, scroll)
+                    // }
+                    // else
+                    desktopRoute(showChildIndexTemp, locationTemp, scroll)
                 }
             }
         }
