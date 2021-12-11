@@ -1,7 +1,7 @@
 import {createContext, useEffect, useReducer} from "react"
 import logoutManager from "../../helpers/logoutManager"
 import {LOGOUT} from "../auth/AuthTypes"
-import {ADD_MY_EXCHANGE, DELETE_MY_EXCHANGE, GET_MY_EXCHANGES, SELECT_EXCHANGE} from "./ExchangeTypes"
+import {ADD_MY_EXCHANGE, DELETE_MY_EXCHANGE, GET_EXCHANGE_DATA, GET_MY_EXCHANGES, SELECT_EXCHANGE} from "./ExchangeTypes"
 import ExchangeActions from "./ExchangeActions"
 
 export const ExchangeContext = createContext(null)
@@ -79,6 +79,35 @@ function reducer(state, action)
                     ...state.myExchanges,
                     list: exchangeList,
                     selectedExchange,
+                },
+            }
+        }
+        case GET_EXCHANGE_DATA:
+        {
+            const {userExchangeId, data} = action.payload
+            const accounts = {}
+            data.accounts.data.forEach(item =>
+            {
+                if (accounts[item.currency]) accounts[item.currency].available += +item.available
+                else accounts[item.currency] = {currency: item.currency, available: +item.available}
+            })
+            const prices = data.prices.data
+            return {
+                ...state,
+                myExchanges: {
+                    ...state.myExchanges,
+                    list: {
+                        ...state.myExchanges.list,
+                        [userExchangeId]: {
+                            ...state.myExchanges.list[userExchangeId],
+                            data: {
+                                ...data,
+                                accounts,
+                                prices,
+                                getDone: true,
+                            },
+                        },
+                    },
                 },
             }
         }

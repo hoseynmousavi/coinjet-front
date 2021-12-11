@@ -1,6 +1,6 @@
 import request from "../../request/request"
 import apiUrlsConstant from "../../constant/apiUrlsConstant"
-import {ADD_MY_EXCHANGE, DELETE_MY_EXCHANGE, GET_MY_EXCHANGES, SELECT_EXCHANGE} from "./ExchangeTypes"
+import {ADD_MY_EXCHANGE, DELETE_MY_EXCHANGE, GET_EXCHANGE_DATA, GET_MY_EXCHANGES, SELECT_EXCHANGE} from "./ExchangeTypes"
 
 const getMyExchanges = ({dispatch, cancel}) =>
 {
@@ -16,11 +16,13 @@ const getMyExchanges = ({dispatch, cancel}) =>
 
 const getUserExchangeData = ({dispatch, userExchangeId, cancel}) =>
 {
-    console.log(userExchangeId)
     return request.get({url: apiUrlsConstant.kucoinUserExchangeData, cancel, param: userExchangeId})
         .then(data =>
         {
-           console.log(data)
+            dispatch({
+                type: GET_EXCHANGE_DATA,
+                payload: {userExchangeId, data},
+            })
         })
 }
 

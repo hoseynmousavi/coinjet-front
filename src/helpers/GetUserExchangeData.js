@@ -18,13 +18,12 @@ function GetUserExchangeData({userExchangeId, doAfterGet})
         }
         else if (userExchangeId)
         {
-            console.log(userExchangeId, typeof userExchangeId)
             ExchangeActions.getUserExchangeData({dispatch, userExchangeId, cancel: cancelSource => request.current = cancelSource}).then(() => doAfterGet && doAfterGet())
         }
 
         return () => request?.current?.cancel && request.current.cancel(toastConstant.requestCancel)
         // eslint-disable-next-line
-    }, [])
+    }, [userExchangeId])
 
     return {userExchangeData, userExchangeLoading}
 }
