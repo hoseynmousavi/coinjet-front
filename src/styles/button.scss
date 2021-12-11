@@ -13,6 +13,7 @@
   transition: background-color ease 0.2s;
 
   &.first {
+    color: var(--solid-dark);
     background-color: var(--first-color);
   }
 
@@ -28,7 +29,6 @@
   }
 
   &.loading {
-    background-color: var(--second-radius);
     border: 2px solid var(--first-border-color);
     cursor: not-allowed;
   }

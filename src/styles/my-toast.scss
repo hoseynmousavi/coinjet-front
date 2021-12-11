@@ -8,6 +8,11 @@
   right: 15px;
   z-index: var(--modal-z-index);
   pointer-events: none;
+
+  @media screen and (min-width: 480px) {
+    right: auto;
+    width: calc(400px);
+  }
 }
 
 .toast-item {
