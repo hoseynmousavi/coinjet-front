@@ -88,8 +88,11 @@ function reducer(state, action)
             const accounts = {}
             data.accounts.data.forEach(item =>
             {
-                if (accounts[item.currency]) accounts[item.currency].available += +item.available
-                else accounts[item.currency] = {currency: item.currency, available: +item.available}
+                if (item.available > 0)
+                {
+                    if (accounts[item.currency]) accounts[item.currency].available += +item.available
+                    else accounts[item.currency] = {currency: item.currency, available: +item.available}
+                }
             })
             const prices = data.prices.data
             return {

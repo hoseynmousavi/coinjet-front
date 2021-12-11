@@ -1,6 +1,6 @@
 function showNumber(number)
 {
-    return +number.toFixed(6)
+    return +number.toFixed(9)
 }
 
 export default showNumber

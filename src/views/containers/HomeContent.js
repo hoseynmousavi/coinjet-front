@@ -9,6 +9,7 @@ function HomeContent()
     const {state: {myExchanges: {selectedExchange}}} = useContext(ExchangeContext)
     const {userExchangeData, userExchangeLoading} = GetUserExchangeData({userExchangeId: selectedExchange})
     const {prices, accounts} = userExchangeData || {}
+    const sortedAccounts = Object.values(accounts || []).sort((a, b) => (b.available * +prices[b.currency]) - (a.available * +prices[a.currency]))
     return (
         <div className="home-content">
             {
@@ -19,7 +20,7 @@ function HomeContent()
                         <>
                             <div className="home-content-header">
                                 <div>
-                                    <div className="home-content-value">${showNumber(Object.values(accounts).reduce((sum, item) => sum + item.available * +prices[item.currency], 0))}</div>
+                                    <div className="home-content-value">${showNumber(sortedAccounts.reduce((sum, item) => sum + item.available * +prices[item.currency], 0))}</div>
                                     {/*<div className="home-content-value-percent">-$0.00336</div>*/}
                                 </div>
                                 <div>
@@ -29,19 +30,19 @@ function HomeContent()
                             <div className="home-content-table">
                                 <div className="home-content-table-col mobile">
                                     <div className="home-content-table-item title">نام</div>
-                                    {Object.values(accounts).map((item, index) => <div key={index} className="home-content-table-item">{item.currency}</div>)}
+                                    {sortedAccounts.map((item, index) => <div key={index} className="home-content-table-item">{item.currency}</div>)}
                                 </div>
                                 <div className="home-content-table-col">
                                     <div className="home-content-table-item title">مقدار</div>
-                                    {Object.values(accounts).map((item, index) => <div key={index} className="home-content-table-item">{showNumber(item.available)}</div>)}
+                                    {sortedAccounts.map((item, index) => <div key={index} className="home-content-table-item">{showNumber(item.available)}</div>)}
                                 </div>
                                 <div className="home-content-table-col">
                                     <div className="home-content-table-item title">قیمت</div>
-                                    {Object.values(accounts).map((item, index) => <div key={index} className="home-content-table-item">${showNumber(+prices[item.currency])}</div>)}
+                                    {sortedAccounts.map((item, index) => <div key={index} className="home-content-table-item">${showNumber(+prices[item.currency])}</div>)}
                                 </div>
                                 <div className="home-content-table-col mobile">
                                     <div className="home-content-table-item title">ارزش موجودی</div>
-                                    {Object.values(accounts).map((item, index) => <div key={index} className="home-content-table-item">${showNumber(item.available * +prices[item.currency])}</div>)}
+                                    {sortedAccounts.map((item, index) => <div key={index} className="home-content-table-item">${showNumber(item.available * +prices[item.currency])}</div>)}
                                 </div>
                                 {/*<div className="home-content-table-col">*/}
                                 {/*    <div className="home-content-table-item title">سود / زیان</div>*/}
