@@ -1,5 +1,6 @@
 function showNumber(number)
 {
+    console.log(number)
     return +number.toFixed(9)
 }
 

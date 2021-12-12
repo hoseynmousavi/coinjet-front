@@ -114,124 +114,124 @@ function Switch({children, className})
         }
     }
 
-    function mobileForward(showChildIndexTemp, locationTemp, scroll)
-    {
-        if (typeof requestAnimationFrame === "undefined") desktopRoute(showChildIndexTemp, locationTemp, scroll)
-        else
-        {
-            let translate = 0
-            let step = 1
-            addProperties()
+    // function mobileForward(showChildIndexTemp, locationTemp, scroll)
+    // {
+    //     if (typeof requestAnimationFrame === "undefined") desktopRoute(showChildIndexTemp, locationTemp, scroll)
+    //     else
+    //     {
+    //         let translate = 0
+    //         let step = 1
+    //         addProperties()
+    //
+    //         function hide()
+    //         {
+    //             if (contRef.current)
+    //             {
+    //                 translate = translate + step <= 30 ? translate + step : 30
+    //                 step = translate + step + 1 <= 30 ? step + 1 : step
+    //                 contRef.current.style.transform = `translate3d(${translate}%, 0, 0)`
+    //                 contRef.current.style.opacity = `${0.9 - (translate / 30)}`
+    //                 if (translate < 30) window.requestAnimationFrame(hide)
+    //                 else
+    //                 {
+    //                     setState({showChildIndex: showChildIndexTemp, location: locationTemp})
+    //                     setTimeout(() => window.requestAnimationFrame(showNext), 150)
+    //                 }
+    //             }
+    //         }
+    //
+    //         let secondTranslate = -30
+    //
+    //         function showNext()
+    //         {
+    //             if (contRef.current)
+    //             {
+    //                 secondTranslate = secondTranslate + step <= 0 ? secondTranslate + step : 0
+    //                 step = step - 1 >= 1 ? step - 1 : 1
+    //                 contRef.current.style.transform = `translate3d(${secondTranslate}%, 0, 0)`
+    //                 contRef.current.style.opacity = `${1 + (secondTranslate / 30)}`
+    //                 if (secondTranslate < 0) window.requestAnimationFrame(showNext)
+    //                 else removeProperties(scroll)
+    //             }
+    //         }
+    //
+    //         window.requestAnimationFrame(hide)
+    //     }
+    // }
+    //
+    // function mobileBack(showChildIndexTemp, locationTemp, scroll)
+    // {
+    //     if (typeof requestAnimationFrame === "undefined") desktopRoute(showChildIndexTemp, locationTemp, scroll)
+    //     else
+    //     {
+    //         let translate = 0
+    //         let step = 1
+    //         addProperties()
+    //
+    //         function hide()
+    //         {
+    //             if (contRef.current)
+    //             {
+    //                 translate = translate - step >= -30 ? translate - step : -30
+    //                 step = translate - step + 1 >= -30 ? step + 1 : step
+    //                 contRef.current.style.transform = `translate3d(${translate}%, 0, 0)`
+    //                 contRef.current.style.opacity = `${0.9 + (translate / 30)}`
+    //                 if (translate > -30) window.requestAnimationFrame(hide)
+    //                 else
+    //                 {
+    //                     setState({showChildIndex: showChildIndexTemp, location: locationTemp})
+    //                     setTimeout(() =>
+    //                     {
+    //                         innerContRef.current.scroll({top: scroll})
+    //                         window.requestAnimationFrame(showNext)
+    //                     }, 150)
+    //                 }
+    //             }
+    //         }
+    //
+    //         let secondTranslate = 30
+    //
+    //         function showNext()
+    //         {
+    //             if (contRef.current)
+    //             {
+    //                 secondTranslate = secondTranslate - step >= 0 ? secondTranslate - step : 0
+    //                 step = step - 1 >= 1 ? step - 1 : 1
+    //                 contRef.current.style.transform = `translate3d(${secondTranslate}%, 0, 0)`
+    //                 contRef.current.style.opacity = `${1 - (secondTranslate / 30)}`
+    //                 if (secondTranslate > 0) window.requestAnimationFrame(showNext)
+    //                 else removeProperties(scroll)
+    //             }
+    //         }
+    //
+    //         window.requestAnimationFrame(hide)
+    //     }
+    // }
 
-            function hide()
-            {
-                if (contRef.current)
-                {
-                    translate = translate + step <= 30 ? translate + step : 30
-                    step = translate + step + 1 <= 30 ? step + 1 : step
-                    contRef.current.style.transform = `translate3d(${translate}%, 0, 0)`
-                    contRef.current.style.opacity = `${0.9 - (translate / 30)}`
-                    if (translate < 30) window.requestAnimationFrame(hide)
-                    else
-                    {
-                        setState({showChildIndex: showChildIndexTemp, location: locationTemp})
-                        setTimeout(() => window.requestAnimationFrame(showNext), 150)
-                    }
-                }
-            }
-
-            let secondTranslate = -30
-
-            function showNext()
-            {
-                if (contRef.current)
-                {
-                    secondTranslate = secondTranslate + step <= 0 ? secondTranslate + step : 0
-                    step = step - 1 >= 1 ? step - 1 : 1
-                    contRef.current.style.transform = `translate3d(${secondTranslate}%, 0, 0)`
-                    contRef.current.style.opacity = `${1 + (secondTranslate / 30)}`
-                    if (secondTranslate < 0) window.requestAnimationFrame(showNext)
-                    else removeProperties(scroll)
-                }
-            }
-
-            window.requestAnimationFrame(hide)
-        }
-    }
-
-    function mobileBack(showChildIndexTemp, locationTemp, scroll)
-    {
-        if (typeof requestAnimationFrame === "undefined") desktopRoute(showChildIndexTemp, locationTemp, scroll)
-        else
-        {
-            let translate = 0
-            let step = 1
-            addProperties()
-
-            function hide()
-            {
-                if (contRef.current)
-                {
-                    translate = translate - step >= -30 ? translate - step : -30
-                    step = translate - step + 1 >= -30 ? step + 1 : step
-                    contRef.current.style.transform = `translate3d(${translate}%, 0, 0)`
-                    contRef.current.style.opacity = `${0.9 + (translate / 30)}`
-                    if (translate > -30) window.requestAnimationFrame(hide)
-                    else
-                    {
-                        setState({showChildIndex: showChildIndexTemp, location: locationTemp})
-                        setTimeout(() =>
-                        {
-                            innerContRef.current.scroll({top: scroll})
-                            window.requestAnimationFrame(showNext)
-                        }, 150)
-                    }
-                }
-            }
-
-            let secondTranslate = 30
-
-            function showNext()
-            {
-                if (contRef.current)
-                {
-                    secondTranslate = secondTranslate - step >= 0 ? secondTranslate - step : 0
-                    step = step - 1 >= 1 ? step - 1 : 1
-                    contRef.current.style.transform = `translate3d(${secondTranslate}%, 0, 0)`
-                    contRef.current.style.opacity = `${1 - (secondTranslate / 30)}`
-                    if (secondTranslate > 0) window.requestAnimationFrame(showNext)
-                    else removeProperties(scroll)
-                }
-            }
-
-            window.requestAnimationFrame(hide)
-        }
-    }
-
-    function addProperties()
-    {
-        if (contRef.current)
-        {
-            const top = window.scrollY
-            contRef.current.style.willChange = "transform, opacity"
-            innerContRef.current.style.maxHeight = window.innerHeight + "px"
-            innerContRef.current.style.overflow = "auto"
-            innerContRef.current.scroll({top})
-        }
-    }
-
-    function removeProperties(scroll)
-    {
-        if (contRef.current)
-        {
-            contRef.current.style.removeProperty("will-change")
-            contRef.current.style.removeProperty("opacity")
-            contRef.current.style.removeProperty("transform")
-            innerContRef.current.style.removeProperty("max-height")
-            innerContRef.current.style.removeProperty("overflow")
-            window.scroll({top: scroll})
-        }
-    }
+    // function addProperties()
+    // {
+    //     if (contRef.current)
+    //     {
+    //         const top = window.scrollY
+    //         contRef.current.style.willChange = "transform, opacity"
+    //         innerContRef.current.style.maxHeight = window.innerHeight + "px"
+    //         innerContRef.current.style.overflow = "auto"
+    //         innerContRef.current.scroll({top})
+    //     }
+    // }
+    //
+    // function removeProperties(scroll)
+    // {
+    //     if (contRef.current)
+    //     {
+    //         contRef.current.style.removeProperty("will-change")
+    //         contRef.current.style.removeProperty("opacity")
+    //         contRef.current.style.removeProperty("transform")
+    //         innerContRef.current.style.removeProperty("max-height")
+    //         innerContRef.current.style.removeProperty("overflow")
+    //         window.scroll({top: scroll})
+    //     }
+    // }
 
     const childrenWithProps = React.Children.map(children, child =>
     {
