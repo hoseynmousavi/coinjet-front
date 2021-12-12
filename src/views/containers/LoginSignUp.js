@@ -43,9 +43,9 @@ function LoginSignUp({isSignUp})
                     <ImageShow className="login-page-logo" src={logo}/>
                 </div>
                 <div className="login-page-desc">به {process.env.REACT_APP_NAME} خوش آمدید</div>
-                {isSignUp && <Input focusOnMountDesktop autoComplete="new-password" type="text" name="full_name" label="نام و نام خانوادگی" placeholder="نام کامل خود را وارد کنید" required onChange={onChange} onSubmit={onSubmit}/>}
-                <Input focusOnMountDesktop={!isSignUp} autoComplete="new-password" type="text" name="email" label="ایمیل" placeholder="ایمیل خود را وارد کنید" validation="email" ltr required onChange={onChange} onSubmit={onSubmit} checkExist={false}/>
-                <Input autoComplete="new-password" type="password" name="password" label="رمز عبور" placeholder="رمز عبور خود را وارد کنید" validation="password" ltr required onChange={onChange} onSubmit={onSubmit}/>
+                {isSignUp && <Input focusOnMountDesktop autoComplete="off" type="text" name="full_name" label="نام و نام خانوادگی" placeholder="نام کامل خود را وارد کنید" required onChange={onChange} onSubmit={onSubmit}/>}
+                <Input focusOnMountDesktop={!isSignUp} autoComplete="off" type="text" name="email" label="ایمیل" placeholder="ایمیل خود را وارد کنید" validation="email" ltr required onChange={onChange} onSubmit={onSubmit} checkExist={false}/>
+                <Input autoComplete="off" type="password" name="password" label="رمز عبور" placeholder="رمز عبور خود را وارد کنید" validation="password" ltr required onChange={onChange} onSubmit={onSubmit}/>
                 {isSignUp ? <br/> : <Material className="login-forget">رمز عبور خود را فراموش کرده‌اید؟</Material>}
                 <Button loading={isLoading} disable={disabled} onClick={onSubmit}>
                     {isSignUp ? "ثبت‌نام" : "ورود"}
