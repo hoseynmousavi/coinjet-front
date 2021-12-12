@@ -8,6 +8,7 @@
   height: var(--full-height);
   z-index: var(--modal-z-index);
   background-color: var(--first-modal-background-color);
+  backdrop-filter: blur(10px);
   opacity: 0;
 
   &.modal {
