@@ -1,7 +1,6 @@
-function showNumber(number)
+function showNumber(number, fixed = 9)
 {
-    console.log(number)
-    return +number.toFixed(9)
+    return +number.toFixed(fixed)
 }
 
 export default showNumber

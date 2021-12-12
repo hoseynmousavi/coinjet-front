@@ -134,10 +134,17 @@
 }
 
 .home-content-value-percent {
-  color: var(--toast-fail-text);
   font-size: var(--big-font);
   direction: ltr;
   text-align: right;
+
+  &.red {
+    color: var(--toast-fail-text);
+  }
+
+  &.green {
+    color: var(--toast-success-bg);
+  }
 }
 
 .home-content-table {

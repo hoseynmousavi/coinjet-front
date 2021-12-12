@@ -95,6 +95,8 @@ function reducer(state, action)
                 }
             })
             const prices = data.prices.data
+            const deposits = data.deposits.data.items
+            const withdrawals = data.withdrawals.data.items
             return {
                 ...state,
                 myExchanges: {
@@ -104,9 +106,11 @@ function reducer(state, action)
                         [userExchangeId]: {
                             ...state.myExchanges.list[userExchangeId],
                             data: {
-                                ...data,
+                                ...state.myExchanges.list[userExchangeId].data,
                                 accounts,
                                 prices,
+                                deposits,
+                                withdrawals,
                                 getDone: true,
                             },
                         },
