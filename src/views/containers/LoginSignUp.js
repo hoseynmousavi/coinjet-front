@@ -1,5 +1,5 @@
 import ImageShow from "../components/ImageShow"
-import logo from "../../media/images/coinjet.png"
+import logo from "../../media/images/logo.png"
 import Input from "../components/Input"
 import Button from "../components/Button"
 import Material from "../components/Material"
