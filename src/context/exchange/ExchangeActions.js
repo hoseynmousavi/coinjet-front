@@ -1,6 +1,6 @@
 import request from "../../request/request"
 import apiUrlsConstant from "../../constant/apiUrlsConstant"
-import {ADD_MY_EXCHANGE, DELETE_MY_EXCHANGE, GET_EXCHANGE_DATA, GET_MY_EXCHANGES, SELECT_EXCHANGE} from "./ExchangeTypes"
+import {ADD_MY_EXCHANGE, DELETE_MY_EXCHANGE, GET_EXCHANGE_DATA, GET_MY_EXCHANGES, GET_SUPPORTED_EXCHANGES, SELECT_EXCHANGE} from "./ExchangeTypes"
 
 const getMyExchanges = ({dispatch, cancel}) =>
 {
@@ -14,9 +14,9 @@ const getMyExchanges = ({dispatch, cancel}) =>
         })
 }
 
-const getUserExchangeData = ({dispatch, userExchangeId, cancel}) =>
+const getUserExchangeData = ({dispatch, isKucoin, userExchangeId, cancel}) =>
 {
-    return request.get({url: apiUrlsConstant.kucoinUserExchangeData, cancel, param: userExchangeId})
+    return request.get({url: apiUrlsConstant[isKucoin ? "kucoinUserExchangeData" : "nobitexUserExchangeData"], cancel, param: userExchangeId})
         .then(data =>
         {
             dispatch({
@@ -58,12 +58,25 @@ const removeUserExchange = ({userExchangeId, dispatch}) =>
         })
 }
 
+const getSupportedExchanges = ({dispatch}) =>
+{
+    request.get({url: apiUrlsConstant.getExchanges})
+        .then(exchanges =>
+        {
+            dispatch({
+                type: GET_SUPPORTED_EXCHANGES,
+                payload: {exchanges},
+            })
+        })
+}
+
 const ExchangeActions = {
     getMyExchanges,
     getUserExchangeData,
     selectExchange,
     addUserExchange,
     removeUserExchange,
+    getSupportedExchanges,
 }
 
 export default ExchangeActions

@@ -1,7 +1,7 @@
 import {createContext, useEffect, useReducer} from "react"
 import logoutManager from "../../helpers/logoutManager"
 import {LOGOUT} from "../auth/AuthTypes"
-import {ADD_MY_EXCHANGE, DELETE_MY_EXCHANGE, GET_EXCHANGE_DATA, GET_MY_EXCHANGES, SELECT_EXCHANGE} from "./ExchangeTypes"
+import {ADD_MY_EXCHANGE, DELETE_MY_EXCHANGE, GET_EXCHANGE_DATA, GET_MY_EXCHANGES, GET_SUPPORTED_EXCHANGES, SELECT_EXCHANGE} from "./ExchangeTypes"
 import ExchangeActions from "./ExchangeActions"
 
 export const ExchangeContext = createContext(null)
@@ -10,6 +10,10 @@ const initialState = {
     myExchanges: {
         list: {},
         selectedExchange: null,
+        getDone: false,
+    },
+    supportedExchanges: {
+        list: {},
         getDone: false,
     },
 }
@@ -84,19 +88,7 @@ function reducer(state, action)
         }
         case GET_EXCHANGE_DATA:
         {
-            const {userExchangeId, data} = action.payload
-            const accounts = {}
-            data.accounts.data.forEach(item =>
-            {
-                if (item.balance > 0)
-                {
-                    if (accounts[item.currency]) accounts[item.currency].balance += +item.balance
-                    else accounts[item.currency] = {currency: item.currency, balance: +item.balance}
-                }
-            })
-            const prices = data.prices.data
-            const deposits = data.deposits.data.items
-            const withdrawals = data.withdrawals.data.items
+            const {userExchangeId, data: {accounts, prices, allBalance, allProfitOrShit, allProfitOrShitPercentTotal}} = action.payload
             return {
                 ...state,
                 myExchanges: {
@@ -107,14 +99,22 @@ function reducer(state, action)
                             ...state.myExchanges.list[userExchangeId],
                             data: {
                                 ...state.myExchanges.list[userExchangeId].data,
-                                accounts,
-                                prices,
-                                deposits,
-                                withdrawals,
+                                accounts, prices, allBalance, allProfitOrShit, allProfitOrShitPercentTotal,
                                 getDone: true,
                             },
                         },
                     },
+                },
+            }
+        }
+        case GET_SUPPORTED_EXCHANGES:
+        {
+            const {exchanges} = action.payload
+            return {
+                ...state,
+                supportedExchanges: {
+                    list: exchanges.reduce((sum, item) => ({...sum, [item._id]: item}), {}),
+                    getDone: true,
                 },
             }
         }
@@ -137,6 +137,8 @@ function ExchangeProvider({children})
     {
         const selectedExchange = localStorage.getItem("selectedExchange")
         if (selectedExchange && selectedExchange !== "null") ExchangeActions.selectExchange({dispatch, selectedExchange})
+
+        ExchangeActions.getSupportedExchanges({dispatch})
 
         logoutManager.setLogOut({callBack: () => dispatch({type: LOGOUT})})
     }, [])

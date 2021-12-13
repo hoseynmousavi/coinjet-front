@@ -11,6 +11,9 @@ import AddPortfo from "../components/AddPortfo"
 import TrashSvg from "../../media/svg/TrashSvg"
 import ExchangeActions from "../../context/exchange/ExchangeActions"
 import {ExchangeContext} from "../../context/exchange/ExchangeReducer"
+import exchangeConstant from "../../constant/exchangeConstant"
+import ImageShow from "../components/ImageShow"
+import nobitexLogo from "../../media/images/nobitex.webp"
 
 function HomeSide()
 {
@@ -58,7 +61,12 @@ function HomeSide()
                         Object.values(myExchanges)?.length ?
                             Object.values(myExchanges).map(item =>
                                 <Material key={item._id} className={`home-side-item ${selectedExchange === item._id ? "active" : ""}`} onClick={selectAccount(item._id)}>
-                                    <KuCoinSvg className="home-side-item-icon"/>
+                                    {
+                                        item.exchange_id === exchangeConstant.kucoinExchangeId ?
+                                            <KuCoinSvg className="home-side-item-icon"/>
+                                            :
+                                            <ImageShow className="home-side-item-icon" src={nobitexLogo}/>
+                                    }
                                     <div className="home-side-item-title">{item.name}</div>
                                     <TrashSvg className="home-side-item-delete" onClick={removeAccount(item._id)}/>
                                 </Material>,
